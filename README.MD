@@ -31,4 +31,6 @@ Have fun!
 
 [//]: # (Project was completed on 29.10.23)
 
-21.04.24 Project started and Stage 1 completed.
+21.04.24 Project started 
+- Stage 1 completed just answer a user given calculation
+- Stage 2 generate a random calculation task and check the user's answer

@@ -1,28 +1,24 @@
 import unittest
-from unittest.mock import patch
-import pytest
+from unittest.mock import patch, call
 
 from exam.arithmetic_exam import ArithmeticExam
+from exam.task_generator import TaskGenerator
 
 
 class TestArithmeticExam(unittest.TestCase):
 
-    #  The method should correctly evaluate a simple arithmetic expression and print the result.
-    def test_evaluate_arithmetic_expression(self):
-        with patch('builtins.input', return_value='2+2') as mock_input:
-            with patch('builtins.print') as mock_print:
-                ArithmeticExam.main()
-                mock_input.assert_called_once()
-                mock_print.assert_called_once_with(4)
+    @patch.object(TaskGenerator, 'get_result', return_value=12)
+    @patch.object(TaskGenerator, 'get_task', return_value='3 * 4')
+    @patch('builtins.print')
+    @patch('builtins.input', return_value='12')
+    def test_correct_answer(self, mock_input, mock_print, mock_get_task, mock_get_result):
+        ArithmeticExam().main()
+        mock_print.assert_has_calls([call('3 * 4'), call('Right!')])
 
-    #  The method should raise a SyntaxError if the input is not a valid arithmetic expression.
-    def test_invalid_arithmetic_expression(self):
-        with patch('builtins.input', return_value='2+*2'):
-            with pytest.raises(SyntaxError):
-                ArithmeticExam.main()
-
-    #  The method should raise a ZeroDivisionError if the input contains division by zero.
-    def test_division_by_zero(self):
-        with patch('builtins.input', return_value='2/0'):
-            with pytest.raises(ZeroDivisionError):
-                ArithmeticExam.main()
+    @patch.object(TaskGenerator, 'get_result', return_value=12)
+    @patch.object(TaskGenerator, 'get_task', return_value='3 * 4')
+    @patch('builtins.print')
+    @patch('builtins.input', return_value='13')
+    def test_wrong_answer(self, mock_input, mock_print, mock_get_task, mock_get_result):
+        ArithmeticExam().main()
+        mock_print.assert_has_calls([call('3 * 4'), call('Wrong!')])
