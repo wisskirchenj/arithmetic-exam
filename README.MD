@@ -29,9 +29,12 @@ Have fun!
 
 ## Project progress
 
-[//]: # (Project was completed on 29.10.23)
+Project was completed on 21.04.24
 
-21.04.24 Project started 
+21.04.24 Project started and completed
 - Stage 1 completed just answer a user given calculation
 - Stage 2 generate a random calculation task and check the user's answer
 - Stage 3 add a scoring system and make the exam contain 5 tasks
+- Stage 4 provide two exam levels and have the option to save the results
+
+

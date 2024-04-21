@@ -27,13 +27,28 @@ class TestArithmeticExam(unittest.TestCase):
     @patch.object(TaskGenerator, 'generate_task', return_value='3 * 4')
     @patch('builtins.print')
     @patch('builtins.input')
-    def test_main_loop(self, mock_input, mock_print, mock_get_task, mock_get_result):
-        mock_input.side_effect = ['abc', '13', '12', '12', '12', '12']
+    def test_main_loop_no_save(self, mock_input, mock_print, mock_get_task, mock_get_result):
+        mock_input.side_effect = ['3', '1', 'abc', '13', '12', '12', '12', '12', 'no']
         ArithmeticExam().main()
         mock_print.assert_any_call('Incorrect format.')
         mock_print.assert_any_call('Right!')
         mock_print.assert_any_call('Wrong!')
-        mock_print.assert_called_with('Your mark is 4/5.')
+        mock_print.assert_called_with('Your mark is 4/5. Would you like to save the result? Enter yes or no.')
+
+    @patch.object(TaskGenerator, 'get_result', return_value=144)
+    @patch.object(TaskGenerator, 'generate_task', return_value='12')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    @patch('builtins.open')
+    def test_main_loop_level2_with_save(self, mock_open, mock_input, mock_print, mock_get_task, mock_get_result):
+        mock_input.side_effect = ['2', 'abc', '144', '12', '144', '144', '144', 'Yes', 'John']
+        ArithmeticExam().main()
+        mock_open.assert_called_with('results.txt', 'a')
+        mock_print.assert_any_call('Incorrect format.')
+        mock_print.assert_any_call('Right!')
+        mock_print.assert_any_call('Wrong!')
+        mock_print.assert_any_call('Your mark is 4/5. Would you like to save the result? Enter yes or no.')
+        mock_print.assert_called_with('The results are saved in "results.txt".')
 
     @patch('builtins.print')
     @patch('builtins.input')
