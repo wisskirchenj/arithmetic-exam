@@ -6,13 +6,11 @@ class TaskGenerator:
     def __init__(self):
         self.task: str = ''
 
-    def generate_task(self):
+    def generate_task(self) -> str:
         left = self.random_operand()
         right = self.random_operand()
         operator = self.random_operator()
         self.task = f'{left} {operator} {right}'
-
-    def get_task(self) -> str:
         return self.task
 
     def get_result(self) -> int:

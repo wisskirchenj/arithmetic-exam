@@ -19,6 +19,5 @@ class TestTaskGenerator(unittest.TestCase):
         mock_choice.return_value = operator
         mock_randint.side_effect = operands
         task_generator = TaskGenerator()
-        task_generator.generate_task()
-        self.assertEqual(task, task_generator.get_task())
+        self.assertEqual(task, task_generator.generate_task())
         self.assertEqual(result, task_generator.get_result())
